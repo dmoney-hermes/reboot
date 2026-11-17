@@ -1,7 +1,75 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Hero from './Hero';
 import logo from '../assets/images/shlogo300.png'
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom'
+import { FaChevronDown } from 'react-icons/fa'
+
+const practiceItems = [
+  { label: 'Violin', to: '/practice/violin' },
+  { label: 'Piano', to: '/practice/piano' },
+  { label: 'Viola', to: '/practice/viola' },
+]
+
+const PracticeMenu = () => {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  const { pathname } = useLocation()
+  const active = pathname.startsWith('/practice')
+
+  useEffect(() => {
+    if (!open) return
+    const onPointer = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('pointerdown', onPointer)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('pointerdown', onPointer)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  return (
+    <div
+      ref={ref}
+      className='relative'
+      onMouseEnter={(e) => { if (e.pointerType !== 'touch') setOpen(true) }}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type='button'
+        aria-haspopup='menu'
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        className={`flex items-center gap-1 text-blue-900 hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2 ${active ? 'bg-yellow-400 text-black' : ''}`}
+      >
+        Practice
+        <FaChevronDown className={`text-xs transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden='true' />
+      </button>
+      {open && (
+        <div
+          role='menu'
+          className='absolute left-0 top-full z-50 min-w-40 rounded-md border border-gray-200 bg-white py-1 shadow-lg'
+        >
+          {practiceItems.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              role='menuitem'
+              onClick={() => setOpen(false)}
+              className='block px-4 py-2 text-blue-900 hover:bg-yellow-400 hover:text-black'
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 const Navbar = () => {
   return (
@@ -31,12 +99,7 @@ const Navbar = () => {
                     to={"/about-recipe"}
                     className='text-blue-900 hover:bg-blue-400 hover:text-blue-900 rounded-md px-3 py-2'
                   >Recipe Remix</Link> */}
-                  <Link 
-                    to={"/about-swag"}
-                    className='text-blue-900 hover:bg-blue-400 hover:text-blue-900 rounded-md px-3 py-2'
-                  >
-                    Swag Tracker
-                  </Link>
+                  <PracticeMenu/>
                   <Link 
                     to={"/world-map"}
                     className='text-blue-900 hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2'
