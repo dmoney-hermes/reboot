@@ -1,0 +1,502 @@
+/* The game fills whatever box it is placed in. Everything is scoped to this
+   module, so nothing here can leak into (or be broken by) the host page. */
+.root {
+  --accent: #ff5a1f;
+  --panel: rgba(18, 18, 24, 0.72);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --text: #f4f1ea;
+  --muted: #a9a59c;
+
+  position: relative;
+  isolation: isolate; /* keep our z-indexes from competing with the host page */
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  min-height: 28rem;
+  container-type: size;
+  background: url("./assets/wallpaper.jpg") no-repeat center / cover;
+}
+.root,
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: border-box;
+}
+
+/* Menu on the left, board fills the rest. */
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.flash {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  z-index: 5;
+}
+
+/* 6 columns x 4 rows = 24 cards. The grid stretches to fill the board area,
+   so the cards always fit inside it and resize with the window. */
+.board {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.card {
+  display: block;
+  padding: 0;
+  background: none;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border: 4px solid orangered;
+  border-radius: 7px;
+  perspective: 800px;
+  transition-duration: 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.front,
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.front {
+  transform: rotateY(180deg);
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+/* Matched cards fade out, showing the matched image.
+   Do NOT animate opacity on .card itself: it is a preserve-3d element, and
+   opacity < 1 forces it flat, so the browser draws the (mirrored) back face
+   mid-fade. Fade the front face and the border separately, and hide the back
+   face outright instead of relying on backface-visibility while animating. */
+.matched {
+  animation: fadeBorder 1s forwards;
+}
+.matched .front {
+  animation: fadeout 1s forwards;
+}
+.matched .back {
+  visibility: hidden;
+}
+
+@keyframes fadeBorder {
+  to {
+    border-color: transparent;
+    visibility: hidden;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.menu {
+  order: -1;
+  flex: 0 0 clamp(190px, 19vw, 280px);
+  margin: 12px 0 12px 12px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+}
+
+.brand {
+  text-align: center;
+}
+.brand img {
+  width: 100%;
+  max-height: 70px;
+  object-fit: contain;
+}
+.brand h1 {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.progress {
+  position: relative;
+  height: 22px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #ffb347);
+  transition: width 0.4s ease;
+}
+.progressText {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 6px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+}
+.statLabel {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.btn {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.1s, background 0.15s, border-color 0.15s;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: none;
+}
+.btn:focus-visible,
+.card:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.btnPrimary {
+  background: var(--accent);
+  color: #fff;
+}
+.btnPrimary:hover {
+  background: #ff7140;
+}
+.btnGhost {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--panel-border);
+}
+.btnGhost:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+/* Used by the win modal's Close button. */
+.btnDanger {
+  background: #d9534f;
+  color: #fff;
+}
+
+/*----------------------------------------MODAL CSS---------------------------------------------*/
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal {
+  width: 600px;
+  max-width: 90%;
+  text-align: center;
+  background: #333333;
+  font-family: Georgia, Helvetica, Arial;
+  color: orangered;
+  font-size: 2em;
+  position: relative;
+}
+
+.modalHeader,
+.modalFooter {
+  border: none;
+}
+
+.modalFooter .btn {
+  position: relative;
+  right: 50%;
+  transform: translate(50%);
+}
+.modalHeader,
+.modalFooter {
+  padding: 15px;
+}
+.modalBody > video,
+.modalBody > img {
+  width: 100%;
+}
+
+/*-------------------------------------------------ANIMATIONS-------*/
+.modalFlash {
+  animation: modalflash;
+  animation-duration: 5.2s;
+}
+
+@keyframes modalflash {
+  24% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  25% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  32% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  36% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  40% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  42% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  44% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  46% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  48% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  50% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  51% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  52% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  53% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  55% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  60% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  61% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  62% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  63% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  65% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  66% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  67% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  68% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  70% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  72% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  75% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  78% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  80% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  82% {
+    box-shadow: 0 0 30px 30px rgba(89, 169, 255, 1);
+  }
+  84% {
+    box-shadow: 0 0 0 0 rgba(89, 169, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 250px 250px rgba(89, 169, 255, 1);
+  }
+}
+
+.blind {
+  animation: bigFlash;
+  animation-duration: 5.2s;
+}
+@keyframes bigFlash {
+  28% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  32% {
+    opacity: 1;
+  }
+  36% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  42% {
+    opacity: 0;
+  }
+  44% {
+    opacity: 1;
+  }
+  46% {
+    opacity: 0;
+  }
+  48% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 0;
+  }
+  64% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0;
+  }
+  68% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+  }
+  72% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  78% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  82% {
+    opacity: 1;
+  }
+  84% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Portrait / narrow game box: menu becomes a compact strip on top, board is 4 x 6.
+   This is a *container* query, so it reacts to the size of the box the game is
+   placed in (e.g. a page under a nav bar), not to the browser window. */
+@container (max-aspect-ratio: 1/1) {
+  .layout {
+    flex-direction: column;
+  }
+  .menu {
+    flex: 0 0 auto;
+    margin: 8px 8px 0;
+    padding: 10px;
+    gap: 10px;
+    overflow: visible;
+  }
+  .brand {
+    display: none;
+  }
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .actions {
+    flex-direction: row;
+  }
+  .btn {
+    padding: 8px 4px;
+    font-size: 0.8rem;
+  }
+  .board {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
