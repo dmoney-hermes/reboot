@@ -14,11 +14,12 @@ import NotFound from './components/pages/NotFound';
 // import Playground from './components/pages/Playground';
 // import Projects from './components/pages/Projects';
 // import AboutRecipe from './components/pages/AboutRecipe';
-import AboutSwag from './components/pages/AboutSwag';
 // import Recipe from './components/pages/Recipe';
-import Swag from './components/pages/SwagInventory';
 import WorldMap from './components/pages/WorldMap';
 import Multiplcation from './components/pages/MultiplicationTables';
+import ViolinPractice from './components/pages/practice/ViolinPractice';
+import PianoPractice from './components/pages/practice/PianoPractice';
+import ViolaPractice from './components/pages/practice/ViolaPractice';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,8 +29,9 @@ const router = createBrowserRouter(
       {/* <Route path='/projects' element={<Projects/>} /> */}
       <Route path='/multiplication' element={<Multiplcation/>} />
       <Route path='/world-map' element={<WorldMap/>} />
-      <Route path='/swag' element={<Swag/>} />
-      <Route path='/about-swag' element={<AboutSwag/>} />
+      <Route path='/practice/violin' element={<ViolinPractice/>} />
+      <Route path='/practice/piano' element={<PianoPractice/>} />
+      <Route path='/practice/viola' element={<ViolaPractice/>} />
       <Route path='*' element={<NotFound/>} />
     </Route>)
 )
