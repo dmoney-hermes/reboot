@@ -19,6 +19,7 @@ import WorldMap from './components/pages/WorldMap';
 import Multiplcation from './components/pages/MultiplicationTables';
 import ViolinPractice from './components/pages/practice/ViolinPractice';
 import PianoPractice from './components/pages/practice/PianoPractice';
+import MemoryMatch from './components/pages/games/MemoryMatch';
 import ViolaPractice from './components/pages/practice/ViolaPractice';
 
 const router = createBrowserRouter(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
       <Route path='/practice/violin' element={<ViolinPractice/>} />
       <Route path='/practice/piano' element={<PianoPractice/>} />
       <Route path='/practice/viola' element={<ViolaPractice/>} />
+      <Route path='/games/memory-match' element={<MemoryMatch/>} />
       <Route path='*' element={<NotFound/>} />
     </Route>)
 )

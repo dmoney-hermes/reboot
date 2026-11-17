@@ -10,11 +10,15 @@ const practiceItems = [
   { label: 'Viola', to: '/practice/viola' },
 ]
 
-const PracticeMenu = () => {
+const gamesItems = [
+  { label: 'Memory Match', to: '/games/memory-match' },
+]
+
+const NavDropdown = ({ label, items, basePath }) => {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   const { pathname } = useLocation()
-  const active = pathname.startsWith('/practice')
+  const active = pathname.startsWith(basePath)
 
   useEffect(() => {
     if (!open) return
@@ -36,17 +40,17 @@ const PracticeMenu = () => {
     <div
       ref={ref}
       className='relative'
-      onMouseEnter={(e) => { if (e.pointerType !== 'touch') setOpen(true) }}
-      onMouseLeave={() => setOpen(false)}
+      onPointerEnter={(e) => { if (e.pointerType === 'mouse') setOpen(true) }}
+      onPointerLeave={(e) => { if (e.pointerType === 'mouse') setOpen(false) }}
     >
       <button
         type='button'
         aria-haspopup='menu'
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className={`flex items-center gap-1 text-blue-900 hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2 ${active ? 'bg-yellow-400 text-black' : ''}`}
+        className={`flex cursor-pointer items-center gap-1 text-blue-900 hover:bg-yellow-500 hover:text-black rounded-md px-3 py-2 ${active ? 'bg-yellow-500 text-black' : ''}`}
       >
-        Practice
+        {label}
         <FaChevronDown className={`text-xs transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden='true' />
       </button>
       {open && (
@@ -54,13 +58,13 @@ const PracticeMenu = () => {
           role='menu'
           className='absolute left-0 top-full z-50 min-w-40 rounded-md border border-gray-200 bg-white py-1 shadow-lg'
         >
-          {practiceItems.map((item) => (
+          {items.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               role='menuitem'
               onClick={() => setOpen(false)}
-              className='block px-4 py-2 text-blue-900 hover:bg-yellow-400 hover:text-black'
+              className='block px-4 py-2 text-blue-900 hover:bg-yellow-500 hover:text-black'
             >
               {item.label}
             </Link>
@@ -99,7 +103,8 @@ const Navbar = () => {
                     to={"/about-recipe"}
                     className='text-blue-900 hover:bg-blue-400 hover:text-blue-900 rounded-md px-3 py-2'
                   >Recipe Remix</Link> */}
-                  <PracticeMenu/>
+                  <NavDropdown label='Practice' items={practiceItems} basePath='/practice'/>
+                  <NavDropdown label='Games' items={gamesItems} basePath='/games'/>
                   <Link 
                     to={"/world-map"}
                     className='text-blue-900 hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2'
