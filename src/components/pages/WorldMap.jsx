@@ -254,6 +254,20 @@ function greenScale(t) {
   return `rgb(${r},${g},${b})`;
 }
 
+function highlightCountry(g, canonical, mode) {
+  const choropleth = mode !== "default";
+  g.selectAll(".country")
+    .attr("fill", (d) => getCountryColor(d._name, mode))
+    .attr("stroke", choropleth ? "#fff" : "#4a7fa8")
+    .attr("stroke-width", choropleth ? 0.4 : 0.6);
+  g.selectAll(".country")
+    .filter((d) => resolveCountry(d._name)[1] === canonical)
+    .attr("fill", "#FAC775")
+    .attr("stroke", "#111")
+    .attr("stroke-width", mode === "default" ? 0.6 : 0.4)
+    .raise();
+}
+
 function getCountryColor(name, mode) {
   const [info] = resolveCountry(name);
   if (!info) return "#c8dff0";
@@ -437,6 +451,8 @@ export default function WorldMap() {
   const d3Ref = useRef(null);
 
   const [mode, setMode] = useState("default");
+  const modeRef = useRef("default");
+  modeRef.current = mode;
   const [selectedName, setSelectedName] = useState(null);
   const [selectedInfo, setSelectedInfo] = useState(null);
   const [quizActive, setQuizActive] = useState(false);
@@ -508,14 +524,7 @@ export default function WorldMap() {
   const handleCountryClick = useCallback((geoName, g, features) => {
     const [info, canonical] = resolveCountry(geoName);
     if (g) {
-      g.selectAll(".country").attr("stroke", "#4a7fa8").attr("stroke-width", 0.6).attr("stroke-dasharray", null);
-      g.selectAll(".country").filter((d) => {
-        const [, can] = resolveCountry(d._name);
-        return can === canonical;
-      })
-        .attr("stroke", "#111")
-        .attr("stroke-width", 2)
-        .attr("fill", "#FAC775");
+      highlightCountry(g, canonical, modeRef.current);
     }
     setSelectedName(canonical || geoName);
     setSelectedInfo(info);
@@ -558,14 +567,7 @@ export default function WorldMap() {
     if (!d3) return;
     const g = d3.select(gRef.current);
     const info = DB[dbName];
-    g.selectAll(".country").attr("stroke", mode === "default" ? "#4a7fa8" : "#fff").attr("stroke-width", mode === "default" ? 0.6 : 0.4);
-    g.selectAll(".country").filter((d) => {
-      const [, can] = resolveCountry(d._name);
-      return can === dbName;
-    })
-      .attr("stroke", "#111")
-      .attr("stroke-width", 2)
-      .attr("fill", "#FAC775");
+    highlightCountry(g, dbName, mode);
     setSelectedName(dbName);
     setSelectedInfo(info || null);
     flyToCountry(dbName);
