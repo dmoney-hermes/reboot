@@ -1,36 +1,48 @@
 {
-  "rights": "Back to the Future imagery belongs to Universal Studios and its respective rights holders. These official-site images are not represented as openly licensed; attribution is not a grant of permission. Fan project only; obtain permission before commercial redistribution.",
-  "processing": "Downloaded from the official movie galleries, cropped and encoded as local WebP files. No runtime third-party image requests.",
+  "rights": "Movie imagery belongs to its respective rights holders. Sources include the official movie galleries and eight reviewer-supplied GitHub attachments. None are represented as openly licensed; attribution or reviewer selection is not a grant of copyright permission. The supplied Getty Images watermark/credit is preserved. Obtain appropriate permission before commercial redistribution.",
+  "processing": "Unchanged upstream artwork retains its original crops. Eight review attachments are proportionally fitted into 640x640 dark canvases without cropping, with watermarks intact, and encoded as local WebP. No runtime third-party image requests. Legacy filenames identify matching slots, not necessarily the replacement subject.",
   "assets": [
     {
       "path": "assets/refresh/marty-guitar.webp",
-      "description": "Marty McFly playing guitar at the school dance",
+      "description": "Lightning striking the Hill Valley clock tower",
       "film": 1,
-      "sourcePage": "https://www.backtothefuture.com/movies/backtothefuture1",
-      "sourceImage": "https://static1.squarespace.com/static/5c62c09c4d546e27dc1016c7/64b90758b7191d7cd2b913a5/64b90758b7191d7cd2b913a8/1689758333659/2171_09545.jpg",
-      "cropCenter": [
-        0.5,
-        0.45
+      "sourceType": "review-attachment",
+      "sourcePage": "https://github.com/juicybear44/reboot/pull/34#discussion_r4636017749",
+      "sourceImage": "https://github.com/user-attachments/assets/b72e7479-4b16-49e7-bdf8-3c01c58a5863",
+      "sourceSize": [
+        527,
+        591
       ],
       "size": [
         640,
         640
-      ]
+      ],
+      "fit": "contain",
+      "paddingColor": "#070c18",
+      "watermarksPreserved": true,
+      "sourceSha256": "b1fa363aa48cbc5785aa48d6ce94c9cf98f3c3e502bccc3c9e9b8f9265e7db3e",
+      "outputSha256": "4c6e5fcb5187440fe4a5899dc08803b833784bb5ea292cfba402df1a9924f955"
     },
     {
       "path": "assets/refresh/doc-clock.webp",
-      "description": "Doc Brown at the clock tower",
+      "description": "Doc Brown wearing goggles and holding electrical leads",
       "film": 1,
-      "sourcePage": "https://www.backtothefuture.com/movies/backtothefuture1",
-      "sourceImage": "https://static1.squarespace.com/static/5c62c09c4d546e27dc1016c7/64b90758b7191d7cd2b913a5/64b90758b7191d7cd2b913ca/1689758333727/2171_06995.jpg",
-      "cropCenter": [
-        0.5,
-        0.25
+      "sourceType": "review-attachment",
+      "sourcePage": "https://github.com/juicybear44/reboot/pull/34#discussion_r4636042844",
+      "sourceImage": "https://github.com/user-attachments/assets/2b3e86c5-e784-4b29-8b98-3b703785c4ea",
+      "sourceSize": [
+        569,
+        590
       ],
       "size": [
         640,
         640
-      ]
+      ],
+      "fit": "contain",
+      "paddingColor": "#070c18",
+      "watermarksPreserved": true,
+      "sourceSha256": "85cb21f7fc083159914f6eab98ad16eb3e2ff4b831c68fabb39a3c55fa018bea",
+      "outputSha256": "2c69258b0c63007e73d693d7aefc708bd4c2c81e0728552d20b07aabbb918e78"
     },
     {
       "path": "assets/refresh/frosted-delorean.webp",
@@ -64,33 +76,45 @@
     },
     {
       "path": "assets/refresh/marty-goggles.webp",
-      "description": "Marty McFly lifting goggles beside a red car",
+      "description": "Goldie Wilson in his diner uniform",
       "film": 1,
-      "sourcePage": "https://www.backtothefuture.com/movies/backtothefuture1",
-      "sourceImage": "https://static1.squarespace.com/static/5c62c09c4d546e27dc1016c7/64b92f6358bd0623e36c44a3/64b92f6458bd0623e36c4528/1689758330204/2171-C-8700.jpg",
-      "cropCenter": [
-        0.4,
-        0.35
+      "sourceType": "review-attachment",
+      "sourcePage": "https://github.com/juicybear44/reboot/pull/34#discussion_r4635811494",
+      "sourceImage": "https://github.com/user-attachments/assets/8eca3def-58e6-4a64-8636-a098004f5118",
+      "sourceSize": [
+        530,
+        592
       ],
       "size": [
         640,
         640
-      ]
+      ],
+      "fit": "contain",
+      "paddingColor": "#070c18",
+      "watermarksPreserved": true,
+      "sourceSha256": "aada569db614491d3ecfd40f1f4628d6aed785668d5539547ccfc2b220986f0a",
+      "outputSha256": "d467b787fae05c0de838175f75ad51d8b5f47b1b4605f57ebd666c7aff4f576d"
     },
     {
       "path": "assets/refresh/hoverboard.webp",
-      "description": "Marty McFly riding the hoverboard",
-      "film": 2,
-      "sourcePage": "https://www.backtothefuture.com/movies/backtothefuture2",
-      "sourceImage": "https://static1.squarespace.com/static/5c62c09c4d546e27dc1016c7/64b93540e637932d36f81423/64b93540e637932d36f81436/1689758328208/2191_00151.jpg",
-      "cropCenter": [
-        0.5,
-        0.5
+      "description": "Marty and Doc standing beside the DeLorean fire trails",
+      "film": 1,
+      "sourceType": "review-attachment",
+      "sourcePage": "https://github.com/juicybear44/reboot/pull/34#discussion_r4636028069",
+      "sourceImage": "https://github.com/user-attachments/assets/8823b2d6-f16c-491f-891c-346f54e3103e",
+      "sourceSize": [
+        521,
+        800
       ],
       "size": [
         640,
         640
-      ]
+      ],
+      "fit": "contain",
+      "paddingColor": "#070c18",
+      "watermarksPreserved": true,
+      "sourceSha256": "8eedda5d84136a6e9a315644edb74d378ea43d8b947c05f19bb76aa02ab647bf",
+      "outputSha256": "6d0c81f371467cfa978f0137ed21d8f229e8025bdbf015a9c20781651c14e335"
     },
     {
       "path": "assets/refresh/future-doc-marty.webp",
@@ -109,63 +133,87 @@
     },
     {
       "path": "assets/refresh/biff-tannen.webp",
-      "description": "Biff Tannen wearing his hat",
-      "film": 2,
-      "sourcePage": "https://www.backtothefuture.com/movies/backtothefuture2",
-      "sourceImage": "https://static1.squarespace.com/static/5c62c09c4d546e27dc1016c7/64b93540e637932d36f81423/64b93540e637932d36f81428/1689758327955/2191-2-Z.jpg",
-      "cropCenter": [
-        0.5,
-        0.25
+      "description": "Doc Brown wearing his mind-reading helmet",
+      "film": 1,
+      "sourceType": "review-attachment",
+      "sourcePage": "https://github.com/juicybear44/reboot/pull/34#discussion_r4635797541",
+      "sourceImage": "https://github.com/user-attachments/assets/104f7c2e-ba85-4271-bdef-2b97d07246d7",
+      "sourceSize": [
+        506,
+        793
       ],
       "size": [
         640,
         640
-      ]
+      ],
+      "fit": "contain",
+      "paddingColor": "#070c18",
+      "watermarksPreserved": true,
+      "sourceSha256": "522e83ca8bd181f3683e4a6fc6bfbe47198b62e4c6120d05113f5a658ac28784",
+      "outputSha256": "a94c4c494bd998326e9a530e666f11830a17b51345aaad2737cbcbdaf4b7f5fb"
     },
     {
       "path": "assets/refresh/flying-delorean.webp",
-      "description": "Doc Brown leaning out of the hovering DeLorean",
-      "film": 2,
-      "sourcePage": "https://www.backtothefuture.com/movies/backtothefuture2",
-      "sourceImage": "https://static1.squarespace.com/static/5c62c09c4d546e27dc1016c7/64b93540e637932d36f81423/64b93540e637932d36f8142e/1689758328027/2191_00221.JPG",
-      "cropCenter": [
-        0.55,
-        0.5
+      "description": "Einstein the dog inside the time machine",
+      "film": 1,
+      "sourceType": "review-attachment",
+      "sourcePage": "https://github.com/juicybear44/reboot/pull/34#discussion_r4636103679",
+      "sourceImage": "https://github.com/user-attachments/assets/85f21d25-1878-4a04-8a09-84273abf90fd",
+      "sourceSize": [
+        502,
+        564
       ],
       "size": [
         640,
         640
-      ]
+      ],
+      "fit": "contain",
+      "paddingColor": "#070c18",
+      "watermarksPreserved": true,
+      "sourceSha256": "95c9fd4c797feed5a4c2529916fee9a47307f545886484d3694fc90d2a3e592d",
+      "outputSha256": "fa89c93ca2b37181be28aa31d45c606195f254cd2776b1de3d719a22f4899db5"
     },
     {
       "path": "assets/refresh/western-showdown.webp",
-      "description": "The Old West showdown in 1885",
+      "description": "Marty and Doc in the Old West, with the supplied Getty Images watermark preserved",
       "film": 3,
-      "sourcePage": "https://www.backtothefuture.com/movies/backtothefuture3",
-      "sourceImage": "https://images.squarespace-cdn.com/content/v1/5c62c09c4d546e27dc1016c7/c4868015-6a29-4dcf-823d-6ae3dc88dadf/2196_00028.jpg",
-      "cropCenter": [
-        0.5,
-        0.5
+      "sourceType": "review-attachment",
+      "sourcePage": "https://github.com/juicybear44/reboot/pull/34#discussion_r4635823740",
+      "sourceImage": "https://github.com/user-attachments/assets/606716bd-22da-43b0-ab83-87d6de7b7c84",
+      "sourceSize": [
+        549,
+        853
       ],
       "size": [
         640,
         640
-      ]
+      ],
+      "fit": "contain",
+      "paddingColor": "#070c18",
+      "watermarksPreserved": true,
+      "sourceSha256": "c15ecca821a5cfff3c884af9f89e38df7b5df81504772efc99f031d12e42df27",
+      "outputSha256": "caf0ccc86ff9f4df33623b40b5088afea362fb352500c4c50e1d82da963beddf"
     },
     {
       "path": "assets/refresh/time-train.webp",
-      "description": "Time-machine instruments and illuminated gauges",
-      "film": 3,
-      "sourcePage": "https://www.backtothefuture.com/movies/backtothefuture3",
-      "sourceImage": "https://static1.squarespace.com/static/5c62c09c4d546e27dc1016c7/64b9494538e660623fe2fc91/64b9494538e660623fe2fcd0/1689758332252/2196_00241.jpg",
-      "cropCenter": [
-        0.5,
-        0.5
+      "description": "Biff Tannen washing a car in his green tracksuit",
+      "film": 1,
+      "sourceType": "review-attachment",
+      "sourcePage": "https://github.com/juicybear44/reboot/pull/34#discussion_r4636002148",
+      "sourceImage": "https://github.com/user-attachments/assets/415e7abd-89f6-42c9-b5c7-fbc986ff0c04",
+      "sourceSize": [
+        461,
+        595
       ],
       "size": [
         640,
         640
-      ]
+      ],
+      "fit": "contain",
+      "paddingColor": "#070c18",
+      "watermarksPreserved": true,
+      "sourceSha256": "4b569d8658a81bf924f0ad338892ac504003f00137fa93fb341f6a6966c9c0da",
+      "outputSha256": "f41bf6c06f7447aaa3d4da156ac50f98c5c02dd92da12465cddcc81bd399ea08"
     },
     {
       "path": "assets/refresh/clara-clayton.webp",

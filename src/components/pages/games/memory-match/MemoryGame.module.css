@@ -84,6 +84,9 @@
 
 .front {
   transform: rotateY(180deg);
+  /* Show the complete reviewer-selected portraits, including source credits. */
+  object-fit: contain;
+  background: #070c18;
 }
 
 .flipped {
