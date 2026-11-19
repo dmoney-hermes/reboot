@@ -2,7 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import Hero from './Hero';
 import logo from '../assets/images/shlogo300.png'
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { FaChevronDown } from 'react-icons/fa'
+import { FaChevronDown, FaLock } from 'react-icons/fa'
+
+// White text on the gold bar; hover/active use a darker gold.
+const navText = 'text-white text-shadow-sm hover:bg-yellow-600'
 
 const practiceItems = [
   { label: 'Violin', to: '/practice/violin' },
@@ -48,7 +51,7 @@ const NavDropdown = ({ label, items, basePath }) => {
         aria-haspopup='menu'
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className={`flex cursor-pointer items-center gap-1 text-blue-900 hover:bg-yellow-500 hover:text-black rounded-md px-3 py-2 ${active ? 'bg-yellow-500 text-black' : ''}`}
+        className={`flex cursor-pointer items-center gap-1 ${navText} rounded-md px-3 py-2 ${active ? 'bg-yellow-600' : ''}`}
       >
         {label}
         <FaChevronDown className={`text-xs transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden='true' />
@@ -56,7 +59,7 @@ const NavDropdown = ({ label, items, basePath }) => {
       {open && (
         <div
           role='menu'
-          className='absolute left-0 top-full z-50 min-w-40 rounded-md border border-gray-200 bg-white py-1 shadow-lg'
+          className='absolute left-0 top-full z-50 min-w-40 rounded-md border border-yellow-600 bg-yellow-500 py-1 shadow-lg'
         >
           {items.map((item) => (
             <Link
@@ -64,7 +67,7 @@ const NavDropdown = ({ label, items, basePath }) => {
               to={item.to}
               role='menuitem'
               onClick={() => setOpen(false)}
-              className='block px-4 py-2 text-blue-900 hover:bg-yellow-500 hover:text-black'
+              className={`block px-4 py-2 ${navText}`}
             >
               {item.label}
             </Link>
@@ -78,7 +81,7 @@ const NavDropdown = ({ label, items, basePath }) => {
 const Navbar = () => {
   return (
     <>
-      <nav className='bg-white-500 border-b-2 border-yellow-500'>
+      <nav className='relative z-10 bg-yellow-500 border-b-2 border-yellow-600 shadow-md'>
         <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
           <div className='flex h-20 items-center justify-between'>
             <div className='flex flex-1 items-center justify-center md:items-stretch md:justify-start'>
@@ -107,15 +110,22 @@ const Navbar = () => {
                   <NavDropdown label='Games' items={gamesItems} basePath='/games'/>
                   <Link 
                     to={"/world-map"}
-                    className='text-blue-900 hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2'
+                    className={`${navText} rounded-md px-3 py-2`}
                   >
                     World Map
                   </Link>
                   <Link 
                     to={"/multiplication"}
-                    className='text-blue-900 hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2'
+                    className={`${navText} rounded-md px-3 py-2`}
                   >
                     Multiplication
+                  </Link>
+                  <Link
+                    to={"/monitor"}
+                    className={`flex items-center gap-1 ${navText} rounded-md px-3 py-2`}
+                  >
+                    <FaLock className='text-xs' aria-hidden='true' />
+                    Monitor
                   </Link>
                 </div>
               </div>
