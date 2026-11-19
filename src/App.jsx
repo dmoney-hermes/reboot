@@ -21,6 +21,7 @@ import ViolinPractice from './components/pages/practice/ViolinPractice';
 import PianoPractice from './components/pages/practice/PianoPractice';
 import MemoryMatch from './components/pages/games/MemoryMatch';
 import ViolaPractice from './components/pages/practice/ViolaPractice';
+import Monitor from './components/pages/Monitor';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
       <Route path='/practice/piano' element={<PianoPractice/>} />
       <Route path='/practice/viola' element={<ViolaPractice/>} />
       <Route path='/games/memory-match' element={<MemoryMatch/>} />
+      <Route path='/monitor' element={<Monitor/>} />
       <Route path='*' element={<NotFound/>} />
     </Route>)
 )
