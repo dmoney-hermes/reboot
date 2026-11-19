@@ -2,7 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import Hero from './Hero';
 import logo from '../assets/images/shlogo300.png'
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { FaChevronDown } from 'react-icons/fa'
+import { FaChevronDown, FaLock } from 'react-icons/fa'
+
+// Site gold; one shade darker than the border so it's readable on white.
+const navText = 'text-yellow-600'
 
 const practiceItems = [
   { label: 'Violin', to: '/practice/violin' },
@@ -48,7 +51,7 @@ const NavDropdown = ({ label, items, basePath }) => {
         aria-haspopup='menu'
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className={`flex cursor-pointer items-center gap-1 text-blue-900 hover:bg-yellow-500 hover:text-black rounded-md px-3 py-2 ${active ? 'bg-yellow-500 text-black' : ''}`}
+        className={`flex cursor-pointer items-center gap-1 ${navText} hover:bg-yellow-500 hover:text-black rounded-md px-3 py-2 ${active ? 'bg-yellow-500 text-black' : ''}`}
       >
         {label}
         <FaChevronDown className={`text-xs transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden='true' />
@@ -64,7 +67,7 @@ const NavDropdown = ({ label, items, basePath }) => {
               to={item.to}
               role='menuitem'
               onClick={() => setOpen(false)}
-              className='block px-4 py-2 text-blue-900 hover:bg-yellow-500 hover:text-black'
+              className={`block px-4 py-2 ${navText} hover:bg-yellow-500 hover:text-black`}
             >
               {item.label}
             </Link>
@@ -107,15 +110,22 @@ const Navbar = () => {
                   <NavDropdown label='Games' items={gamesItems} basePath='/games'/>
                   <Link 
                     to={"/world-map"}
-                    className='text-blue-900 hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2'
+                    className={`${navText} hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2`}
                   >
                     World Map
                   </Link>
                   <Link 
                     to={"/multiplication"}
-                    className='text-blue-900 hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2'
+                    className={`${navText} hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2`}
                   >
                     Multiplication
+                  </Link>
+                  <Link
+                    to={"/monitor"}
+                    className={`flex items-center gap-1 ${navText} hover:bg-yellow-400 hover:text-black rounded-md px-3 py-2`}
+                  >
+                    <FaLock className='text-xs' aria-hidden='true' />
+                    Monitor
                   </Link>
                 </div>
               </div>
