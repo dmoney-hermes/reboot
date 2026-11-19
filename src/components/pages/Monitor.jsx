@@ -1,7 +1,6 @@
 import GarageMonitor from '../GarageMonitor';
 
-// The hub is only reachable from devices on the Tailscale network, so the
-// address is safe to commit. Everyone else just sees the lock screen.
+// Tailnet-only address, safe to commit.
 const HUB_URL = 'https://hermes-box.tail342924.ts.net';
 
 const Monitor = () => (
